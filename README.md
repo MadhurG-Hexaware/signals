@@ -103,6 +103,36 @@ exampleSignal.Consume();
 ```
 Sometimes only one script should handle a signal or the signal should not reach others. Unity for example does this with keystrokes in the editor, you can decide in the script if the [event is used](https://docs.unity3d.com/ScriptReference/Event.Use.html). Similar to that, you can consume signals with `signal.Consume()`. Always be away of the order of your listeners. Listeners with a lower order value are called first and therefore decide before others if they should get the event as well.
 
+
+### Signals in Inspector
+ Declare signal attribute on top of a string type and another signal variable in script 
+ ```c#
+ [Signal]
+public string signalType = string.Empty;
+
+[SerializeField]
+Signal signal;
+
+//on Start, do this
+    signal = SignalExtension.GetFromName( signalType );
+    signal.AddListener( OnSignalTriggered );
+
+//for Signals with paramters, 
+//either use the type of signal you need or the final type of signal
+//e.g for a signal with int type.
+
+[SerializeField]
+Signal<int> signal;
+singal =(Signal<int>) SignalExtension.GetFromName(signaltype);
+
+//OR 
+[SerializeField]
+SignalInt signal;
+singal =(SignalInt) SignalExtension.GetFromName(signaltype);
+
+```
+
+
 ## Editor Window
 
 The editor window can be accessed through `Window->Signals->Singals`. On the first start and whenever you added a signal you want to debug, just hit the refresh button in the bottom right corner of the window
