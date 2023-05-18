@@ -7,11 +7,11 @@ using UnityEngine;
 
 public static class SignalExtension
 {
-    public static Signal GetFromName(this Signal signal, string name)
+    public static ISignal GetFromName( string name)
     {
         string sig_type = name;
         Type type = null;
-        Signal val = null;
+        ISignal val = null;
 
         Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
         foreach ( Assembly assembly in assemblies )
@@ -27,7 +27,7 @@ public static class SignalExtension
 
         if ( type != null )
         {
-            val = (Signal)Signals.Get( type );
+            val = (ISignal)Signals.Get( type );
         }
         else
         {
